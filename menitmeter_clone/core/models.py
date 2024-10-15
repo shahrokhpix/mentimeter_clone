@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
+
 
 class User(AbstractUser):
     phone_number = models.CharField(max_length=15, unique=True)
@@ -28,7 +30,10 @@ class Survey(models.Model):
     description = models.TextField(blank=True)
     creation_date = models.DateField(auto_now_add=True)
     editable_until = models.DateField()
-    logo = models.ImageField(upload_to='survey_logos/', null=True, blank=True)
+
+    def is_editable(self):
+        """کاربران فقط می‌توانند نظرسنجی‌ها را تا یک ماه ویرایش کنند"""
+        return self.editable_until >= timezone.now()
 
     def __str__(self):
         return self.title

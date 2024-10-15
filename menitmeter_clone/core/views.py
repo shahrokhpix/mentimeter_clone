@@ -4,7 +4,7 @@ from kavenegar import KavenegarAPI
 from django.conf import settings
 import random
 from django.http import HttpResponse
-
+from models import Survey
 def send_otp(phone_number):
     api = KavenegarAPI(settings.KAVENEGAR_API_KEY)
     otp = random.randint(1000, 9999)
@@ -37,3 +37,11 @@ def verify_otp(request):
         else:
             return HttpResponse('Invalid OTP, try again.')
     return render(request, 'core/verify_otp.html')
+
+def survey_detail(request, survey_id):
+    survey = Survey.objects.get(id=survey_id)
+    if survey.creator.subscription_type != 'free':
+        # اجازه به شخصی‌سازی بک‌گراند و لوگو
+        return render(request, 'core/survey_detail.html', {'survey': survey, 'customizable': True})
+    else:
+        return render(request, 'core/survey_detail.html', {'survey': survey, 'customizable': False})

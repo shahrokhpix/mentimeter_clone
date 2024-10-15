@@ -51,3 +51,12 @@ class Question(models.Model):
 
     def __str__(self):
         return self.question_text
+class Payment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    package = models.ForeignKey(SubscriptionPackage, on_delete=models.CASCADE)
+    authority = models.CharField(max_length=255)
+    status = models.CharField(max_length=50, default='unpaid')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Payment {self.id} - {self.user.username}'       

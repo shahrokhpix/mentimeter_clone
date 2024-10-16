@@ -1,0 +1,12 @@
+<!-- core/templates/core/add_question.html -->
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h1>افزودن سوال به نظرسنجی: {{ survey.title }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">افزودن سوال</button>
+    </form>
+</div>
+{% endblock %}

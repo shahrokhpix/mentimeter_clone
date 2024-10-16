@@ -8,6 +8,112 @@
 }
 
 /* استایل‌های عمومی */
+/* core/static/core/css/styles.css */
+
+/* تنظیمات کلی برای متن */
 body {
-    font-family: 'IranSans', sans-serif;
+    font-family: 'IranSans', Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* استایل هدر */
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+/* استایل کلی فرم‌ها */
+form {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+/* استایل لیست گروهی */
+ul.list-group {
+    padding: 0;
+    list-style: none;
+}
+
+ul.list-group li {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+ul.list-group li a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+ul.list-group li a:hover {
+    text-decoration: underline;
+}
+
+/* استایل دکمه‌ها */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* واکنش‌گرا بودن */
+@media (max-width: 768px) {
+    header {
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    ul.list-group li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h1>داشبورد</h1>
+    <p>لیست نظرسنجی‌های شما:</p>
+    <ul class="list-group">
+        {% for survey in surveys %}
+            <li class="list-group-item">
+                {{ survey.title }} 
+                <a href="{% url 'add_question' survey.id %}" class="btn btn-sm btn-info float-right">افزودن سوال</a>
+            </li>
+        {% empty %}
+            <li class="list-group-item">شما هنوز هیچ نظرسنجی‌ای ایجاد نکرده‌اید.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_survey' %}" class="btn btn-success mt-3">ایجاد نظرسنجی جدید</a>
+</div>
+{% endblock %}

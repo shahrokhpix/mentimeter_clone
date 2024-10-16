@@ -1,0 +1,28 @@
+<!-- core/templates/core/participate_survey.html -->
+
+<h1>{{ survey.title }}</h1>
+<form id="surveyForm">
+    {% csrf_token %}
+    {% for question in questions %}
+        <!-- نمایش سوالات -->
+    {% endfor %}
+    <button type="submit">ارسال</button>
+</form>
+
+<script>
+    document.getElementById('surveyForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        fetch("{% url 'submit_survey' survey.id %}", {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            // پردازش پاسخ
+        });
+    });
+</script>

@@ -15,7 +15,13 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 AUTH_USER_MODEL = 'core.User'
-ZARINPAL_MERCHANT_ID = 'کد مرچنت زرین‌پال شما'
+
+
+# تنظیمات زرین‌پال
+ZARINPAL = {
+    'MERCHANT_ID': 'مرچنت کد شما',
+    'SANDBOX': False,  # اگر می‌خواهید از محیط تست زرین‌پال استفاده کنید، این مقدار را True قرار دهید
+}
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -39,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'django_zarinpal',
 ]
 
 MIDDLEWARE = [

@@ -1,0 +1,8 @@
+<!-- core/templates/core/purchase_subscription.html -->
+
+<h1>خرید اشتراک {{ package.name }}</h1>
+<p>قیمت: {{ package.price }} تومان</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">پرداخت</button>
+</form>

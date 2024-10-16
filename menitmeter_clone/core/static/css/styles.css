@@ -1,0 +1,13 @@
+/* core/static/css/styles.css */
+
+/* تعریف فونت‌های فارسی */
+@font-face {
+    font-family: 'IranSans';
+    src: url('/static/fonts/iransans.eot');
+    /* سایر فرمت‌ها */
+}
+
+/* استایل‌های عمومی */
+body {
+    font-family: 'IranSans', sans-serif;
+}

@@ -23,6 +23,12 @@ ZARINPAL = {
     'SANDBOX': False,  # اگر می‌خواهید از محیط تست زرین‌پال استفاده کنید، این مقدار را True قرار دهید
 }
 
+ZARINPAL_MERCHANT_ID = 'مرچنت کد شما'
+ZARINPAL_WEBSERVICE = 'https://api.zarinpal.com/pg/v4/payment/request.json'
+ZARINPAL_STARTPAY = 'https://www.zarinpal.com/pg/StartPay/{authority}'
+ZARINPAL_VERIFY = 'https://api.zarinpal.com/pg/v4/payment/verify.json'
+ZARINPAL_CALLBACK_URL = 'http://127.0.0.1:8000/verify-payment/'  # یا آدرس بازگشت واقعی شما در صورت اجرا بر روی سرور
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 

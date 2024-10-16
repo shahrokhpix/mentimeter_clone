@@ -4,6 +4,7 @@ from django.contrib import admin
 from .models import User, SubscriptionPackage, Survey, Question, Choice, Response, Payment, Page
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
+
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
     list_display = ['username', 'phone_number', 'subscription_type', 'subscription_expiration', 'is_suspended']

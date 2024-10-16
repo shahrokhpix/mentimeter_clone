@@ -31,6 +31,8 @@ class Survey(models.Model):
     description = models.TextField(blank=True)
     creation_date = models.DateField(auto_now_add=True)
     editable_until = models.DateField()
+    is_active = models.BooleanField(default=True)
+
 
     def is_editable(self):
         """کاربران فقط می‌توانند نظرسنجی‌ها را تا یک ماه ویرایش کنند"""
@@ -70,6 +72,17 @@ class Page(models.Model):
 
     def __str__(self):
         return self.title
- 
-    
-    
+class Choice(models.Model):
+    question = models.ForeignKey(Question, related_name='choices', on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.choice_text
+
+class Response(models.Model):
+    question = models.ForeignKey(Question, related_name='responses', on_delete=models.CASCADE)
+    participant_id = models.CharField(max_length=255)
+    answer_text = models.TextField()
+
+    def __str__(self):
+        return f"Response to {self.question} by {self.participant_id}"

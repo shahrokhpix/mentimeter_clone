@@ -1,6 +1,9 @@
 # core/utils.py
 
 def get_max_surveys(subscription_type):
+    """
+    دریافت حداکثر تعداد نظرسنجی‌های مجاز بر اساس نوع اشتراک
+    """
     limits = {
         'free': 2,
         'monthly': 5,

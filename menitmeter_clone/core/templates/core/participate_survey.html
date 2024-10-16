@@ -1,28 +1,51 @@
 <!-- core/templates/core/participate_survey.html -->
 
-<h1>{{ survey.title }}</h1>
-<form id="surveyForm">
-    {% csrf_token %}
-    {% for question in questions %}
-        <!-- نمایش سوالات -->
-    {% endfor %}
-    <button type="submit">ارسال</button>
-</form>
-
-<script>
-    document.getElementById('surveyForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        var formData = new FormData(this);
-        fetch("{% url 'submit_survey' survey.id %}", {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            // پردازش پاسخ
-        });
-    });
-</script>
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>شرکت در نظرسنجی</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>{{ survey.title }}</h2>
+        <p>{{ survey.description }}</p>
+        <form method="post">
+            {% csrf_token %}
+            {% for question in questions %}
+                <div class="mb-4">
+                    <h5>{{ forloop.counter }}. {{ question.question_text }}</h5>
+                    {% if question.question_type == 'poll' %}
+                        {% for choice in question.choices.all %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="{{ question.id }}" id="choice{{ choice.id }}" value="{{ choice.id }}">
+                                <label class="form-check-label" for="choice{{ choice.id }}">
+                                    {{ choice.choice_text }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                    {% elif question.question_type == 'ranking' %}
+                        {% for choice in question.choices.all %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="{{ question.id }}" id="choice{{ choice.id }}" value="{{ choice.id }}">
+                                <label class="form-check-label" for="choice{{ choice.id }}">
+                                    {{ choice.choice_text }}
+                                </label>
+                            </div>
+                        {% endfor %}
+                        <small class="form-text text-muted">لطفاً رتبه‌بندی کنید.</small>
+                    {% elif question.question_type == 'word_cloud' %}
+                        <input type="text" name="{{ question.id }}" class="form-control" placeholder="کلمات خود را وارد کنید و با کاما جدا کنید">
+                    {% elif question.question_type == 'scale' %}
+                        <input type="number" name="{{ question.id }}" class="form-control" placeholder="عدد خود را وارد کنید">
+                    {% elif question.question_type == 'video' %}
+                        <input type="text" name="{{ question.id }}" class="form-control" placeholder="لینک ویدیو خود را وارد کنید">
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">ارسال پاسخ</button>
+        </form>
+    </div>
+</body>
+</html>

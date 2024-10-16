@@ -1,8 +1,28 @@
 <!-- core/templates/core/purchase_subscription.html -->
 
-<h1>خرید اشتراک {{ package.name }}</h1>
-<p>قیمت: {{ package.price }} تومان</p>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">پرداخت</button>
-</form>
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>خرید اشتراک</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>خرید اشتراک "{{ package.name }}"</h2>
+        <p>قیمت: {{ package.price }} تومان</p>
+        <p>مدت زمان: {{ package.duration_in_months }} ماه</p>
+        <p>حداکثر تعداد نظرسنجی‌ها در هر ماه: 
+            {% if package.max_surveys_per_month == 0 %}
+                بی‌نهایت
+            {% else %}
+                {{ package.max_surveys_per_month }}
+            {% endif %}
+        </p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">خرید اشتراک</button>
+        </form>
+    </div>
+</body>
+</html>

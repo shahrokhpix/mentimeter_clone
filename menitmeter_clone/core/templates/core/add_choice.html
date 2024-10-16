@@ -1,0 +1,29 @@
+<!-- core/templates/core/add_choice.html -->
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>افزودن گزینه به سوال</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>افزودن گزینه به سوال "{{ question.question_text }}"</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">افزودن گزینه</button>
+        </form>
+        <hr>
+        <h4>گزینه‌های موجود:</h4>
+        <ul>
+            {% for choice in choices %}
+                <li>{{ choice.choice_text }}</li>
+            {% empty %}
+                <li>گزینه‌ای وجود ندارد.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

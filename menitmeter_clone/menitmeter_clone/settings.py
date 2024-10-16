@@ -11,23 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-AUTH_USER_MODEL = 'core.User'
 
-
-# تنظیمات زرین‌پال
-ZARINPAL = {
-    'MERCHANT_ID': 'مرچنت کد شما',
-    'SANDBOX': False,  # اگر می‌خواهید از محیط تست زرین‌پال استفاده کنید، این مقدار را True قرار دهید
-}
-
-ZARINPAL_MERCHANT_ID = 'مرچنت کد شما'
-ZARINPAL_WEBSERVICE = 'https://api.zarinpal.com/pg/v4/payment/request.json'
-ZARINPAL_STARTPAY = 'https://www.zarinpal.com/pg/StartPay/{authority}'
-ZARINPAL_VERIFY = 'https://api.zarinpal.com/pg/v4/payment/verify.json'
-ZARINPAL_CALLBACK_URL = 'http://127.0.0.1:8000/verify-payment/'  # یا آدرس بازگشت واقعی شما در صورت اجرا بر روی سرور
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -51,12 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
-    'django_zarinpal',
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'phone_login',  # برای ورود با شماره تلفن
-    
 ]
 
 MIDDLEWARE = [
@@ -123,34 +104,23 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'fa-ir'
-TIME_ZONE = 'Asia/Tehran'
+LANGUAGE_CODE = 'en-us'
+
+TIME_ZONE = 'UTC'
+
 USE_I18N = True
-USE_L10N = True
+
 USE_TZ = True
-
-
-SITE_ID = 1
-
-# تنظیمات مربوط به شماره تلفن و OTP
-ACCOUNT_AUTHENTICATION_METHOD = 'phone'
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_EMAIL_REQUIRED = False
-ACCOUNT_PHONE_LOGIN_ENABLED = True
-PHONE_LOGIN_PIN_LENGTH = 6  # طول کد OTP
-PHONE_LOGIN_PIN_EXPIRY = 300  # مدت اعتبار کد OTP به ثانیه (5 دقیقه)
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-# settings.py
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # پوشه ای که فایل‌های استاتیک جمع‌آوری می‌شوند
-
+STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+ROOT_URLCONF = 'mentimeter_clone.urls'
+WSGI_APPLICATION = 'mentimeter_clone.wsgi.application'

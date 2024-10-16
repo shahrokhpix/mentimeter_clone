@@ -1,19 +1,51 @@
 <!-- core/templates/core/dashboard.html -->
-{% extends 'base.html' %}
-{% block content %}
-<div class="container mt-5">
-    <h1>داشبورد شما</h1>
-    <p>لیست نظرسنجی‌ها:</p>
-    <ul class="list-group">
-        {% for survey in surveys %}
-            <li class="list-group-item">
-                {{ survey.title }} 
-                <a href="{% url 'add_question' survey.id %}" class="btn btn-info btn-sm">افزودن سوال</a>
-            </li>
-        {% empty %}
-            <li class="list-group-item">هیچ نظرسنجی‌ای ایجاد نکرده‌اید.</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'create_survey' %}" class="btn btn-success mt-3">ایجاد نظرسنجی جدید</a>
-</div>
-{% endblock %}
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>داشبورد</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>داشبورد شما</h2>
+        <a href="{% url 'create_survey' %}" class="btn btn-primary mb-3">ایجاد نظرسنجی جدید</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>عنوان</th>
+                    <th>تاریخ ایجاد</th>
+                    <th>قابل ویرایش تا</th>
+                    <th>وضعیت</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for survey in surveys %}
+                <tr>
+                    <td>{{ survey.title }}</td>
+                    <td>{{ survey.creation_date }}</td>
+                    <td>{{ survey.editable_until }}</td>
+                    <td>
+                        {% if survey.is_active %}
+                            فعال
+                        {% else %}
+                            غیر فعال
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'add_question' survey.id %}" class="btn btn-sm btn-warning">افزودن سوال</a>
+                        <a href="{% url 'survey_result' survey.id %}" class="btn btn-sm btn-info">مشاهده نتایج</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">نظرسنجی‌ای وجود ندارد.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

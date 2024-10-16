@@ -1,12 +1,20 @@
 <!-- core/templates/core/create_survey.html -->
-{% extends 'base.html' %}
-{% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4">ایجاد نظرسنجی</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">ایجاد نظرسنجی</button>
-    </form>
-</div>
-{% endblock %}
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>ایجاد نظرسنجی جدید</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>ایجاد نظرسنجی جدید</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">ایجاد نظرسنجی</button>
+        </form>
+    </div>
+</body>
+</html>

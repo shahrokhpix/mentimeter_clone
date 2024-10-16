@@ -1,0 +1,23 @@
+<!-- core/templates/core/request_otp.html -->
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>درخواست OTP</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>درخواست کد تایید</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="phone_number">شماره موبایل</label>
+                <input type="text" name="phone_number" id="phone_number" class="form-control" placeholder="مثال: 09123456789" required>
+            </div>
+            <button type="submit" class="btn btn-primary">درخواست کد تایید</button>
+        </form>
+    </div>
+</body>
+</html>

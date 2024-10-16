@@ -1,14 +1,15 @@
-/* core/static/css/styles.css */
-
+/* تعریف فونت‌های فارسی */
 /* تعریف فونت‌های فارسی */
 @font-face {
     font-family: 'IranSans';
-    src: url('static/fonts/iransans.eot');
-    /* سایر فرمت‌ها */
+    src: url('../fonts/IRANSans/eot/IRANSansWeb_Bold.eot'),
+         url('../fonts/IRANSans/woff2/IRANSansWeb.woff2') format('woff2'),
+         url('../fonts/IRANSans/woff/IRANSansWeb.woff') format('woff'),
+         url('../fonts/IRANSans/ttf/IRANSansWeb.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
-/* استایل‌های عمومی */
-/* core/static/core/css/styles.css */
 
 /* تنظیمات کلی برای متن */
 body {
@@ -117,7 +118,6 @@ ul.list-group li a:hover {
         align-items: flex-start;
     }
 }
-
 
 /* استایل مخصوص صفحه Home */
 header h1 {

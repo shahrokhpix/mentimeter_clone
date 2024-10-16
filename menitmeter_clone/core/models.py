@@ -1,7 +1,23 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.db import models
 
+class UserManager(BaseUserManager):
+    def create_user(self, phone_number, password=None):
+        if not phone_number:
+            raise ValueError('User must have a phone number')
+        user = self.model(phone_number=phone_number)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, phone_number, password):
+        user = self.create_user(phone_number, password)
+        user.is_admin = True
+        user.save(using=self._db)
+        return user
 
 class User(AbstractUser):
     phone_number = models.CharField(max_length=15, unique=True)
@@ -14,6 +30,7 @@ class User(AbstractUser):
     subscription_expiration = models.DateField(null=True, blank=True)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     is_suspended = models.BooleanField(default=False)
+    otp = models.CharField(max_length=6, blank=True, null=True)  # افزودن فیلد OTP
 
     def get_full_name(self):
         return f'{self.first_name} {self.last_name}'

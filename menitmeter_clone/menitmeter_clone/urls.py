@@ -7,7 +7,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('core.urls')),
+    path('', include('core.urls')),  # مسیرهای اصلی پروژه شما
+    path('accounts/', include('allauth.urls')),  # مسیرهای ورود و ثبت‌نام
+    path('phone/', include('phone_login.urls')),  # مسیرهای ورود با شماره تلفن
 ]
 
 if settings.DEBUG:

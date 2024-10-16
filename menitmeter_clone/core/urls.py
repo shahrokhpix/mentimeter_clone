@@ -6,7 +6,6 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('login/', views.login_view, name='login'),
-    path('verify-otp/', views.verify_otp, name='verify_otp'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('create-survey/', views.create_survey, name='create_survey'),
     path('survey/<int:survey_id>/add-question/', views.add_question, name='add_question'),
@@ -16,4 +15,7 @@ urlpatterns = [
     path('purchase/<int:package_id>/', views.purchase_subscription, name='purchase_subscription'),
     path('verify-payment/', views.verify_payment, name='verify_payment'),
     path('page/<int:page_id>/', views.page_view, name='page_view'),
+    path('send-otp/', views.send_otp, name='send_otp'),
+    path('request-otp/', views.request_otp, name='request_otp'),
+    path('verify-otp/', views.verify_otp, name='verify_otp'),
 ]

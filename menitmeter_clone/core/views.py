@@ -3,14 +3,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from .forms import PhoneLoginForm, OTPForm, SurveyForm, QuestionForm, ChoiceForm
-from .models import User, Survey, Question, Choice, SubscriptionPackage, Payment, Response
+from .models import User, Survey, Question, Choice, SubscriptionPackage, Payment, Response,Page
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
 import random
-from kavenegar import KavenegarAPI
+from kavenegar import *
 from django.conf import settings
 from datetime import timedelta
+from django.shortcuts import render, redirect
+from phone_login.models import PhoneToken
+from django.http import JsonResponse
+from .models import User
+from random import randint
 
 def send_otp_code(phone_number):
     api = KavenegarAPI(settings.SMS_API_KEY)
@@ -31,25 +36,6 @@ def login_view(request):
     else:
         form = PhoneLoginForm()
     return render(request, 'core/login.html', {'form': form})
-
-def verify_otp(request):
-    if request.method == 'POST':
-        form = OTPForm(request.POST)
-        if form.is_valid():
-            entered_otp = form.cleaned_data['otp']
-            if entered_otp == str(request.session.get('otp')):
-                phone_number = request.session.get('phone_number')
-                user, created = User.objects.get_or_create(phone_number=phone_number, defaults={'username': phone_number})
-                login(request, user)
-                return redirect('dashboard')
-            else:
-                form.add_error('otp', 'کد تایید نادرست است')
-    else:
-        form = OTPForm()
-    return render(request, 'core/verify_otp.html', {'form': form})
-
-def home(request):
-    return render(request, 'core/home.html')
 
 @login_required
 def dashboard(request):
@@ -178,3 +164,44 @@ def page_view(request, page_id):
     page = get_object_or_404(Page, id=page_id)
     return render(request, 'core/page.html', {'page': page})
 
+
+# core/views.py
+
+
+
+def send_otp(request):
+    if request.method == 'POST':
+        phone_number = request.POST.get('phone_number')
+        if phone_number:
+            token, created = PhoneToken.objects.get_or_create(phone_number=phone_number)
+            token.send_otp()
+            return JsonResponse({'status': 'OTP sent'})
+        return JsonResponse({'error': 'Phone number is required'}, status=400)
+    return render(request, 'core/send_otp.html')
+
+# core/views.py
+
+def verify_otp(request):
+    if request.method == 'POST':
+        phone_number = request.POST.get('phone_number')
+        otp = request.POST.get('otp')
+        user = User.objects.filter(phone_number=phone_number, otp=otp).first()
+        if user:
+            login(request, user)
+            return redirect('dashboard')
+        return render(request, 'core/verify_otp.html', {'error': 'Invalid OTP'})
+    return render(request, 'core/verify_otp.html')
+
+
+def request_otp(request):
+    if request.method == 'POST':
+        phone_number = request.POST.get('phone_number')
+        user = User.objects.filter(phone_number=phone_number).first()
+        if user:
+            otp = str(randint(100000, 999999))
+            user.otp = otp
+            user.save()
+            # ارسال OTP با استفاده از یک سامانه پیامکی مانند KaveNegar
+            send_otp(phone_number, otp)
+            return redirect('verify_otp')
+    return render(request, 'core/request_otp.html')

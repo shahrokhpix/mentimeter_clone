@@ -52,6 +52,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'django_zarinpal',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'phone_login',  # برای ورود با شماره تلفن
+    
 ]
 
 MIDDLEWARE = [
@@ -124,6 +129,16 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+
+SITE_ID = 1
+
+# تنظیمات مربوط به شماره تلفن و OTP
+ACCOUNT_AUTHENTICATION_METHOD = 'phone'
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_PHONE_LOGIN_ENABLED = True
+PHONE_LOGIN_PIN_LENGTH = 6  # طول کد OTP
+PHONE_LOGIN_PIN_EXPIRY = 300  # مدت اعتبار کد OTP به ثانیه (5 دقیقه)
 
 
 # Static files (CSS, JavaScript, Images)

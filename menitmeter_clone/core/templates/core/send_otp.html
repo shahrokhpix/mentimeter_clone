@@ -1,0 +1,16 @@
+<!-- core/templates/core/send_otp.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2>ارسال کد تایید (OTP)</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="phone_number">شماره تلفن</label>
+            <input type="text" id="phone_number" name="phone_number" class="form-control" placeholder="شماره تلفن خود را وارد کنید" required>
+        </div>
+        <button type="submit" class="btn btn-primary">ارسال کد تایید</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- بخش هدر -->
+    <header class="text-center mb-5">
+        <h1 class="display-4">به منیتیمتر کلون خوش آمدید</h1>
+        <p class="lead">یک ابزار تعاملی برای ارائه و نظرسنجی‌های لحظه‌ای</p>
+    </header>
+
+    <!-- بخش CTA -->
+    <div class="text-center">
+        <a href="{% url 'create_survey' %}" class="btn btn-lg btn-primary mr-3">ایجاد نظرسنجی</a>
+        <a href="{% url 'dashboard' %}" class="btn btn-lg btn-secondary">مشاهده داشبورد</a>
+    </div>
+
+    <!-- بخش جستجو -->
+    <div class="mt-5">
+        <h2 class="text-center mb-4">جستجوی نظرسنجی</h2>
+        <form class="form-inline justify-content-center">
+            <input class="form-control mr-sm-2" type="search" placeholder="کد نظرسنجی را وارد کنید" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">جستجو</button>
+        </form>
+    </div>
+
+    <!-- بخش تصویر -->
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <img src="{% static 'core/images/survey-illustration.png' %}" class="img-fluid" alt="نظرسنجی آنلاین">
+        </div>
+        <div class="col-md-6 d-flex align-items-center">
+            <p class="lead">
+                با استفاده از منیتیمتر کلون می‌توانید به سادگی نظرسنجی‌های خود را ایجاد کنید، سوالات خود را طراحی کنید
+                و از مخاطبان خود در لحظه پاسخ دریافت کنید.
+            </p>
+        </div>
+    </div>
+
+    <!-- بخش ویژگی‌ها -->
+    <section class="mt-5">
+        <h2 class="text-center mb-4">ویژگی‌های کلیدی</h2>
+        <div class="row text-center">
+            <div class="col-md-4">
+                <i class="fas fa-chart-bar fa-3x mb-3"></i>
+                <h4>نمودارهای زنده</h4>
+                <p>نتایج نظرسنجی‌ها به صورت لحظه‌ای نمایش داده می‌شوند.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-users fa-3x mb-3"></i>
+                <h4>تعامل با مخاطبان</h4>
+                <p>مخاطبان بدون نیاز به ثبت‌نام می‌توانند در نظرسنجی شرکت کنند.</p>
+            </div>
+            <div class="col-md-4">
+                <i class="fas fa-shield-alt fa-3x mb-3"></i>
+                <h4>امنیت بالا</h4>
+                <p>حریم خصوصی کاربران شما تضمین شده است.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- بخش نحوه استفاده -->
+    <section class="mt-5">
+        <h2 class="text-center mb-4">نحوه استفاده</h2>
+        <div class="row">
+            <div class="col-md-4 text-center">
+                <i class="fas fa-pencil-alt fa-3x mb-3"></i>
+                <h4>1. ایجاد نظرسنجی</h4>
+                <p>سوالات خود را طراحی کنید و گزینه‌های پاسخ را مشخص نمایید.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <i class="fas fa-share-alt fa-3x mb-3"></i>
+                <h4>2. اشتراک‌گذاری</h4>
+                <p>لینک یا کد نظرسنجی را با مخاطبان خود به اشتراک بگذارید.</p>
+            </div>
+            <div class="col-md-4 text-center">
+                <i class="fas fa-poll fa-3x mb-3"></i>
+                <h4>3. دریافت نتایج</h4>
+                <p>نتایج را به صورت زنده مشاهده کنید و تحلیل نمایید.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- بخش نظرات کاربران -->
+    <section class="mt-5">
+        <h2 class="text-center mb-4">نظرات کاربران</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">"ابزاری عالی برای جمع‌آوری نظرات در جلسات آنلاین!"</p>
+                        <footer class="blockquote-footer">سارا محمدی</footer>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">"استفاده از این پلتفرم بسیار ساده و کاربردی است."</p>
+                        <footer class="blockquote-footer">علی رضایی</footer>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">"نمودارهای زنده واقعاً جذاب و کاربردی هستند."</p>
+                        <footer class="blockquote-footer">مریم احمدی</footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- بخش تماس با ما -->
+    <section class="mt-5">
+        <h2 class="text-center mb-4">تماس با ما</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="نام">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="ایمیل">
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="3" placeholder="پیام شما"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">ارسال پیام</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- فوتر -->
+    <footer class="mt-5 text-center">
+        <p>© 2023 منیتیمتر کلون. تمامی حقوق محفوظ است.</p>
+    </footer>
+</div>
+{% endblock %}

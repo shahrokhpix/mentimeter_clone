@@ -1,4 +1,5 @@
-/* تعریف فونت‌های فارسی */
+/* مسیر: mentimeter_clone/core/static/css/styles.css */
+
 /* تعریف فونت‌های فارسی */
 @font-face {
     font-family: 'IranSans';
@@ -10,72 +11,94 @@
     font-style: normal;
 }
 
+/* تنظیمات کلی */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-/* تنظیمات کلی برای متن */
 body {
     font-family: 'IranSans', Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    color: #333;
+    line-height: 1.6;
+    direction: rtl;
 }
 
 /* استایل هدر */
 header {
     background-color: #007bff;
     color: white;
-    padding: 10px 0;
+    padding: 20px 0;
     text-align: center;
 }
 
-h1, h2 {
-    color: #333;
+header h1 {
+    font-size: 3rem;
+    font-weight: 700;
 }
 
-/* استایل کلی فرم‌ها */
+header p {
+    font-size: 1.5rem;
+    margin-top: 10px;
+    color: #f1f1f1;
+}
+
+/* استایل فرم‌ها */
 form {
-    margin: 20px 0;
+    margin: 30px auto;
     padding: 20px;
     background-color: white;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 input, textarea, select {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
+    padding: 12px;
+    margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box;
+    font-size: 1rem;
 }
 
 button {
-    background-color: #28a745;
+    background-color: #007bff;
     color: white;
-    padding: 10px 15px;
+    padding: 12px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1rem;
     transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #0056b3;
 }
 
-/* استایل لیست گروهی */
+/* استایل دکمه‌های بزرگ */
+.btn-lg {
+    padding: 15px 30px;
+    font-size: 1.25rem;
+}
+
+/* استایل لیست‌ها */
 ul.list-group {
-    padding: 0;
     list-style: none;
+    padding: 0;
 }
 
 ul.list-group li {
-    background-color: #fff;
+    background-color: white;
     padding: 15px;
     margin-bottom: 10px;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -91,26 +114,28 @@ ul.list-group li a:hover {
     text-decoration: underline;
 }
 
-/* استایل دکمه‌ها */
-.btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    text-align: center;
-    border-radius: 4px;
-    text-decoration: none;
+/* استایل آیکون‌ها */
+.icon {
+    font-size: 2rem;
+    margin-right: 10px;
+    color: #007bff;
 }
 
-.btn:hover {
-    background-color: #0056b3;
+/* استایل تصاویر */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
 }
 
-/* واکنش‌گرا بودن */
+/* بخش ریسپانسیو */
 @media (max-width: 768px) {
-    header {
-        padding: 20px 0;
-        text-align: center;
+    header h1 {
+        font-size: 2.5rem;
+    }
+
+    header p {
+        font-size: 1.2rem;
     }
 
     ul.list-group li {
@@ -119,48 +144,54 @@ ul.list-group li a:hover {
     }
 }
 
-/* استایل مخصوص صفحه Home */
-header h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    color: #333;
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    button {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
 }
 
-header p {
+
+/* مسیر: mentimeter_clone/core/static/css/styles.css */
+
+/* استایل برای کارت پکیج */
+.card {
+    margin-bottom: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
     font-size: 1.5rem;
-    color: #666;
+    font-weight: bold;
 }
 
-.btn-lg {
-    padding: 15px 30px;
-    font-size: 1.25rem;
+.card-text {
+    font-size: 1rem;
+    color: #555;
 }
 
-.img-fluid {
+/* استایل برای جدول نظرسنجی‌ها */
+.table {
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    text-align: right;
+    vertical-align: middle;
+}
+
+/* استایل نمودارها */
+canvas {
     max-width: 100%;
     height: auto;
-}
-
-section h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.fa-3x {
-    color: #007bff;
-}
-
-section p {
-    color: #555;
-    font-size: 1.1rem;
-}
-
-@media (max-width: 768px) {
-    header h1 {
-        font-size: 2.5rem;
-    }
-    
-    header p {
-        font-size: 1.2rem;
-    }
 }

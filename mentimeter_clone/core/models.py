@@ -145,3 +145,11 @@ class Page(models.Model):
 
     def __str__(self):
         return self.title
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    package = models.ForeignKey('SubscriptionPackage', on_delete=models.SET_NULL, null=True)
+    package_expiration_date = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return self.user.username

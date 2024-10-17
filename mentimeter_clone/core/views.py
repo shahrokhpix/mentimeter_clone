@@ -11,6 +11,9 @@ import random
 from kavenegar import KavenegarAPI, APIException, HTTPException
 from django.conf import settings
 from datetime import timedelta
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from .models import Survey, UserProfile
 
 def send_otp_code(phone_number):
     """
@@ -77,10 +80,29 @@ def verify_otp(request):
 @login_required
 def dashboard(request):
     """
-    نمایش داشبورد کاربر با لیست نظرسنجی‌ها
+    نمایش داشبورد کاربر با لیست نظرسنجی‌ها و اطلاعات پکیج
     """
+    # دریافت نظرسنجی‌های کاربر
     surveys = Survey.objects.filter(creator=request.user)
-    return render(request, 'core/dashboard.html', {'surveys': surveys})
+    
+    # دریافت پروفایل کاربر و اطلاعات پکیج
+    try:
+        user_profile = UserProfile.objects.get(user=request.user)
+        package = user_profile.package
+        package_expiration = user_profile.package_expiration_date
+    except UserProfile.DoesNotExist:
+        user_profile = None
+        package = None
+        package_expiration = None
+    
+    context = {
+        'surveys': surveys,
+        'package': package,
+        'package_expiration': package_expiration,
+        'user_profile': user_profile,
+    }
+    
+    return render(request, 'core/dashboard.html', context)
 
 @login_required
 def create_survey(request):
@@ -301,3 +323,50 @@ def page_view(request, page_id):
     """
     page = get_object_or_404(Page, id=page_id)
     return render(request, 'core/page.html', {'page': page})
+
+
+def home(request):
+    return render(request, 'core/home.html')
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    
+    return render(request, 'register.html', {'form': form})
+
+from django.db import models
+
+
+def view_survey(request, survey_id):
+    """
+    نمایش نظرسنجی برای کاربران و امکان رأی‌دادن
+    """
+    survey = get_object_or_404(Survey, id=survey_id)
+    questions = survey.questions.all()
+
+    if request.method == 'POST':
+        question_id = request.POST.get('question_id')
+        choice_id = request.POST.get('choice_id')
+        participant_id = request.POST.get('participant_id')  # شناسه کاربر یا آی‌پی
+
+        question = get_object_or_404(Question, id=question_id)
+        choice = get_object_or_404(Choice, id=choice_id)
+
+        # ثبت رأی
+        response, created = Response.objects.get_or_create(
+            question=question, participant_id=participant_id,
+            defaults={'submitted_choice': choice}
+        )
+        if not created:
+            response.submitted_choice = choice
+            response.save()
+
+        return JsonResponse({'status': 'success'})
+
+    return render(request, 'core/view_survey.html', {'survey': survey, 'questions': questions})
